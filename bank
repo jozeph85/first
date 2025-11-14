@@ -1,0 +1,52 @@
+accounts = {}
+
+n = int(input("تعداد حساب‌ها: "))
+for _ in range(n):
+    name = input("نام صاحب حساب: ")
+    balance = float(input("موجودی اولیه: "))
+    accounts[name] = balance
+
+while True:
+    print("\n===== منوی عملیات بانکی =====")
+    print("1. نمایش موجودی همه حساب‌ها")
+    print("2. سپرده‌گذاری")
+    print("3. برداشت")
+    print("4. نمایش حساب‌های با موجودی بیشتر از میانگین")
+    print("5. خروج")
+
+    choice = input("گزینه را انتخاب کنید: ")
+
+    if choice == "1":
+        for name, balance in accounts.items():
+            print(name, ":", balance)
+
+    elif choice == "2":
+        name = input("نام حساب: ")
+        if name in accounts:
+            amount = float(input("مبلغ سپرده: "))
+            accounts[name] += amount
+        else:
+            print("حساب یافت نشد")
+
+    elif choice == "3":
+        name = input("نام حساب: ")
+        if name in accounts:
+            amount = float(input("مبلغ برداشت: "))
+            if accounts[name] >= amount:
+                accounts[name] -= amount
+            else:
+                print("موجودی کافی نیست")
+        else:
+            print("حساب یافت نشد")
+
+    elif choice == "4":
+        avg = sum(accounts.values()) / len(accounts)
+        for name, balance in accounts.items():
+            if balance > avg:
+                print(name, ":", balance)
+
+    elif choice == "5":
+        break
+
+    else:
+        print("گزینه نامعتبر")
