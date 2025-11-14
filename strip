@@ -1,0 +1,44 @@
+from typing import Optional
+
+def my_strip(s: str, chars: Optional[str] = None) -> str:
+    if s == "":
+        return s
+    if chars is None:
+        def is_trim(ch): return ch.isspace()
+    else:
+        charset = set(chars)
+        def is_trim(ch): return ch in charset
+
+    i, j = 0, len(s) - 1
+    while i <= j and is_trim(s[i]):
+        i += 1
+    while j >= i and is_trim(s[j]):
+        j -= 1
+    return s[i:j+1]
+
+def my_lstrip(s: str, chars: Optional[str] = None) -> str:
+    if s == "":
+        return s
+    if chars is None:
+        is_trim = lambda ch: ch.isspace()
+    else:
+        charset = set(chars)
+        is_trim = lambda ch: ch in charset
+    i = 0
+    n = len(s)
+    while i < n and is_trim(s[i]):
+        i += 1
+    return s[i:]
+
+def my_rstrip(s: str, chars: Optional[str] = None) -> str:
+    if s == "":
+        return s
+    if chars is None:
+        is_trim = lambda ch: ch.isspace()
+    else:
+        charset = set(chars)
+        is_trim = lambda ch: ch in charset
+    j = len(s) - 1
+    while j >= 0 and is_trim(s[j]):
+        j -= 1
+    return s[:j+1]
